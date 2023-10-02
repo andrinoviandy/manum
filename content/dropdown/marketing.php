@@ -14,7 +14,7 @@ $data->execute();
 $row = $data->fetchAll();
 $count = $data->rowCount();
 ?>
-<select onchange="ubahMarketing(<?php echo $_GET['id_proses'] ?>, this.value)" class="form-control select2" id="<?php echo explode("_", $_GET['name'])[1]; ?>" name="<?php echo explode("_", $_GET['name'])[1]; ?>">
+<select <?php if ($_SESSION['role_id'] == 4) { echo "disabled"; } ?> onchange="ubahMarketing(<?php echo $_GET['id_proses'] ?>, this.value)" class="form-control select2" id="<?php echo explode("_", $_GET['name'])[1]; ?>" name="<?php echo explode("_", $_GET['name'])[1]; ?>">
     <option value="0">...</option>
     <?php
     if ($count !== 0) {

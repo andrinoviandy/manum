@@ -46,7 +46,9 @@ if (isset($_SESSION['id_ubah'])) {
                                 <?php } else { ?>
                                     <badge class="badge badge-success text-md">Status : Selesai</badge>
                                 <?php } ?>
-                                <button class="btn btn-md btn-info float-right" onclick="updateStatus(<?php echo $row['id_p'] ?>, {title: 'Upgrade Status', id_p : <?php echo $row['id_p'] ?>, status_proses : <?php echo $row['status_proses'] ?>})"><span class="fas fa-check-circle mr-1"></span> Upgrade Status</button>
+                                <?php if ($_SESSION['role_id'] != 4) { ?>
+                                    <button class="btn btn-md btn-info float-right" onclick="updateStatus(<?php echo $row['id_p'] ?>, {title: 'Upgrade Status', id_p : <?php echo $row['id_p'] ?>, status_proses : <?php echo $row['status_proses'] ?>})"><span class="fas fa-check-circle mr-1"></span> Upgrade Status</button>
+                                <?php } ?>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -216,13 +218,15 @@ if (isset($_SESSION['id_ubah'])) {
                                                 <div class="tab-content" id="">
                                                     <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="">
                                                         <div class="overlay-wrapper">
-                                                            <div class="row col-12">
-                                                                <div class="mb-2">
-                                                                    <div class="float-left">
-                                                                        <button class="btn btn-sm btn-success" onclick="tambahInvoice('tambah_invoice_pusat', {title: 'Tambah Invoice (Pusat)', id_p : <?php echo $row['id_p'] ?>, cabang_id: 1, tbody: 'tbody1'})"><i class="fas fa-plus-square"></i> Tambah</button>
+                                                            <?php if ($_SESSION['role_id'] != 4) { ?>
+                                                                <div class="row col-12">
+                                                                    <div class="mb-2">
+                                                                        <div class="float-left">
+                                                                            <button class="btn btn-sm btn-success" onclick="tambahInvoice('tambah_invoice_pusat', {title: 'Tambah Invoice (Pusat)', id_p : <?php echo $row['id_p'] ?>, cabang_id: 1, tbody: 'tbody1'})"><i class="fas fa-plus-square"></i> Tambah</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            <?php } ?>
                                                             <div class="row">
                                                                 <section class="col-12">
                                                                     <div class="card">
@@ -311,13 +315,15 @@ if (isset($_SESSION['id_ubah'])) {
                                                     </div>
                                                     <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="">
                                                         <div class="overlay-wrapper">
-                                                            <div class="row col-12">
-                                                                <div class="mb-2">
-                                                                    <div class="float-left">
-                                                                        <button class="btn btn-sm btn-success" onclick="tambahInvoice('tambah_invoice_cabang', {title: 'Tambah Invoice (Cabang)', id_p : <?php echo $row['id_p'] ?>})"><i class="fas fa-plus-square"></i> Tambah</button>
+                                                            <?php if ($_SESSION['role_id'] != 4) { ?>
+                                                                <div class="row col-12">
+                                                                    <div class="mb-2">
+                                                                        <div class="float-left">
+                                                                            <button class="btn btn-sm btn-success" onclick="tambahInvoice('tambah_invoice_cabang', {title: 'Tambah Invoice (Cabang)', id_p : <?php echo $row['id_p'] ?>})"><i class="fas fa-plus-square"></i> Tambah</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            <?php } ?>
                                                             <div class="row">
                                                                 <section class="col-12">
                                                                     <div class="card">
@@ -409,13 +415,15 @@ if (isset($_SESSION['id_ubah'])) {
                                                     </div>
                                                     <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="">
                                                         <div class="overlay-wrapper">
-                                                            <div class="row col-12">
-                                                                <div class="mb-2">
-                                                                    <div class="float-left">
-                                                                        <button class="btn btn-sm btn-success" onclick="tambahInvoice('tambah_dok_pendukung', {title: 'Tambah Dokumen Pendukung', id_p : <?php echo $row['id_p'] ?>})"><i class="fas fa-plus-square"></i> Tambah</button>
+                                                            <?php if ($_SESSION['role_id'] != 4) { ?>
+                                                                <div class="row col-12">
+                                                                    <div class="mb-2">
+                                                                        <div class="float-left">
+                                                                            <button class="btn btn-sm btn-success" onclick="tambahInvoice('tambah_dok_pendukung', {title: 'Tambah Dokumen Pendukung', id_p : <?php echo $row['id_p'] ?>})"><i class="fas fa-plus-square"></i> Tambah</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            <?php } ?>
                                                             <div class="row">
                                                                 <section class="col-12">
                                                                     <div class="card">

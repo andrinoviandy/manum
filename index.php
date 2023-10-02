@@ -71,7 +71,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['role_id']) && isset($_SESSION['us
       <!-- /.navbar -->
 
       <!-- Main Sidebar Container -->
-      <?php require_once('components/sidebar/sidebar.php') ?>
+      <?php
+      if ($_SESSION['role_id'] == 4) {
+        require_once('components/sidebar/sidebarCustom.php');
+      } else {
+        require_once('components/sidebar/sidebar.php');
+      }
+      ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div id="content"></div>

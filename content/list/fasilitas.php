@@ -24,30 +24,42 @@ $count3 = $data3->rowCount();
     <td width="5%">1</td>
     <td>Passport</td>
     <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
-        <a onclick="tambahInvoice('upload_passport', {title: 'Upload Passport', id_p : <?php echo $_POST['id_proses'] ?>, nama: 'Passport'});" class="btn btn-sm btn-success float-right" data-toggle="tooltip" data-placement="left" title="Upload"><span class="fas fa-upload mr-1"></span> Upload</a>
+        <?php if ($_SESSION['role_id'] != 4) { ?>
+            <a onclick="tambahInvoice('upload_passport', {title: 'Upload Passport', id_p : <?php echo $_POST['id_proses'] ?>, nama: 'Passport'});" class="btn btn-sm btn-success float-right" data-toggle="tooltip" data-placement="left" title="Upload"><span class="fas fa-upload mr-1"></span> Upload</a>
+        <?php } ?>
         <?php if ($count !== 0) { ?>
-        <a onclick="lihatGambar('Preview Passport', 'manum/file/fasilitas/<?php echo $row['file']; ?>');" class="btn btn-sm btn-secondary float-left" data-toggle="tooltip" data-placement="left" title="Bukti"><span class="fas fa-file-image"></span></a>
-        <?php } else {echo "<div class='float-left'>..............</div>";} ?>
+            <a onclick="lihatGambar('Preview Passport', 'manum/file/fasilitas/<?php echo $row['file']; ?>');" class="btn btn-sm btn-secondary float-left" data-toggle="tooltip" data-placement="left" title="Bukti"><span class="fas fa-file-image"></span></a>
+        <?php } else {
+            echo "<div class='float-left'>..............</div>";
+        } ?>
     </td>
 </tr>
 <tr>
     <td>2</td>
     <td>Perlengkapan Umrah/Haji</td>
     <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
-        <a onclick="tambahInvoice('diterima_tanggal', {title: 'Diterima Tanggal', id_p : <?php echo $_POST['id_proses'] ?>, nama: 'Perlengkapan Umrah/Haji'});" class="btn btn-sm btn-success float-right" data-toggle="tooltip" data-placement="left" title="Diterima Tanggal"><span class="fas fa-calendar-check mr-1"></span> Diterima Tanggal</a>
+        <?php if ($_SESSION['role_id'] != 4) { ?>
+            <a onclick="tambahInvoice('diterima_tanggal', {title: 'Diterima Tanggal', id_p : <?php echo $_POST['id_proses'] ?>, nama: 'Perlengkapan Umrah/Haji'});" class="btn btn-sm btn-success float-right" data-toggle="tooltip" data-placement="left" title="Diterima Tanggal"><span class="fas fa-calendar-check mr-1"></span> Diterima Tanggal</a>
+        <?php } ?>
         <?php if ($count2 !== 0) { ?>
-        <div class="text-bold float-left"><span class="fas fa-calendar-check"> <?php echo date('d M Y', strtotime($row2['tgl_diterima'])) ?></span></div>
-        <?php } else {echo "<div class='float-left'>..............</div>";} ?>
+            <div class="text-bold float-left"><span class="fas fa-calendar-check"> <?php echo date('d M Y', strtotime($row2['tgl_diterima'])) ?></span></div>
+        <?php } else {
+            echo "<div class='float-left'>..............</div>";
+        } ?>
     </td>
 </tr>
 <tr>
     <td>3</td>
     <td>Manasik</td>
     <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
-        <a onclick="tambahInvoice('jadwal_manasik', {title: 'Jadwal Manasik', id_p : <?php echo $_POST['id_proses'] ?>, nama: 'Manasik'});" class="btn btn-sm btn-success float-right" data-toggle="tooltip" data-placement="left" title="Atur Jadwal"><span class="fas fa-calendar-check mr-1"></span> Atur Jadwal</a>
+        <?php if ($_SESSION['role_id'] != 4) { ?>
+            <a onclick="tambahInvoice('jadwal_manasik', {title: 'Jadwal Manasik', id_p : <?php echo $_POST['id_proses'] ?>, nama: 'Manasik'});" class="btn btn-sm btn-success float-right" data-toggle="tooltip" data-placement="left" title="Atur Jadwal"><span class="fas fa-calendar-check mr-1"></span> Atur Jadwal</a>
+        <?php } ?>
         <?php if ($count3 !== 0) { ?>
-        <div class="text-bold float-left"><span class="fas fa-calendar-check"> <?php echo date('d M Y', strtotime($row3['jadwal'])) ?></span></div>
-        <?php } else {echo "<div class='float-left'>..............</div>";} ?>
+            <div class="text-bold float-left"><span class="fas fa-calendar-check"> <?php echo date('d M Y', strtotime($row3['jadwal'])) ?></span></div>
+        <?php } else {
+            echo "<div class='float-left'>..............</div>";
+        } ?>
     </td>
 </tr>
 

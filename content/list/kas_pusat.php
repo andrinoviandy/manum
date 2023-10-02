@@ -44,17 +44,21 @@ if ($count !== 0) {
             <td><?php echo $dt['keterangan']; ?></td>
             <!-- <td><?php if ($dt['status'] == 1) { ?><span class="tag tag-success">Aktif</span><?php } else { ?><span class="tag tag-danger">Non Aktif</span><?php } ?></td> -->
             <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
-                <?php if ($_SESSION['role_id'] == 1) { ?>
-                    <?php if ($dt['status_konfirmasi'] == 0) { ?>
-                        <a onclick="konfirmasiInvoice(1, {konfirmasi: 1, nomor: '<?php echo $dt['nomor'] ?>', id: <?php echo $dt['id'] ?>, next: {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 1, tbody: 'tbody1'}});" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Konfirmasi"><span class="fas fa-check-circle"></span></a>
-                    <?php } else { ?>
-                        <a onclick="konfirmasiInvoice(0, {konfirmasi: 0, nomor: '<?php echo $dt['nomor'] ?>', id: <?php echo $dt['id'] ?>, next: {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 1, tbody: 'tbody1'}})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="left" title="Batalkan Konfirmasi"><span class="fas fa-times-circle"></span></a>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
+                    <?php if ($_SESSION['role_id'] == 1) { ?>
+                        <?php if ($dt['status_konfirmasi'] == 0) { ?>
+                            <a onclick="konfirmasiInvoice(1, {konfirmasi: 1, nomor: '<?php echo $dt['nomor'] ?>', id: <?php echo $dt['id'] ?>, next: {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 1, tbody: 'tbody1'}});" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Konfirmasi"><span class="fas fa-check-circle"></span></a>
+                        <?php } else { ?>
+                            <a onclick="konfirmasiInvoice(0, {konfirmasi: 0, nomor: '<?php echo $dt['nomor'] ?>', id: <?php echo $dt['id'] ?>, next: {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 1, tbody: 'tbody1'}})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="left" title="Batalkan Konfirmasi"><span class="fas fa-times-circle"></span></a>
+                        <?php } ?>
                     <?php } ?>
                 <?php } ?>
                 <a onclick="lihatGambar('Preview Bukti', 'manum/file/keuangan/<?php echo $dt['bukti']; ?>');" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="left" title="Bukti"><span class="fas fa-file-image"></span></a>
                 <a target="_blank" href="manum/action/print/invoice.php?id=<?php echo $dt['id'] ?>" class="btn btn-sm btn-primary"><span class="fas fa-print"></span></a>
-                <?php if ($dt['status_konfirmasi'] == 0) { ?>
-                    <button onclick="alertBeforeDeleteСustom(<?php echo $dt['id'] ?>, 'keuangan', {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 1, tbody: 'tbody1'});" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span> Hapus</button>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
+                    <?php if ($dt['status_konfirmasi'] == 0) { ?>
+                        <button onclick="alertBeforeDeleteСustom(<?php echo $dt['id'] ?>, 'keuangan', {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 1, tbody: 'tbody1'});" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span> Hapus</button>
+                    <?php } ?>
                 <?php } ?>
             </td>
         </tr>

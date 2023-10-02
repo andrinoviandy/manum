@@ -10,7 +10,7 @@ if (isset($_POST['paging'])) {
 }
 $where = '';
 if (isset($_POST['search'])) {
-    $where = $where . "AND (LOWER(nama_kas) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nominal::VARCHAR) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pembayaran) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nomor) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(keterangan) LIKE LOWER('%" . $_POST['search'] . "%'))";
+    $where = $where . "AND (LOWER(nama_kas) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nominal::VARCHAR) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pembayaran) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nomor) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(keterangan) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(j.nama) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(j.nik) LIKE LOWER('%" . $_POST['search'] . "%'))";
 }
 $cabang = '';
 if ($_SESSION['role_id'] == 1) {

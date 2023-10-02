@@ -32,10 +32,11 @@ if ($count !== 0) {
             </td>
             <!-- <td>
                 <?php //if ($dt['status_konfirmasi'] == 1) {
-                    //echo "<div class='badge badge-success'>Terkonfirmasi</div>";
+                //echo "<div class='badge badge-success'>Terkonfirmasi</div>";
                 //} else {
-                    //echo "<div class='badge badge-warning'>Belum Konfirmasi</div>";
-                //} ?>
+                //echo "<div class='badge badge-warning'>Belum Konfirmasi</div>";
+                //} 
+                ?>
             </td> -->
             <td>
                 <?php echo $dt['mutasi_ke'] ?>
@@ -54,15 +55,19 @@ if ($count !== 0) {
             <td><?php echo $dt['keterangan']; ?></td>
             <!-- <td><?php if ($dt['status'] == 1) { ?><span class="tag tag-success">Aktif</span><?php } else { ?><span class="tag tag-danger">Non Aktif</span><?php } ?></td> -->
             <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
-                <?php if ($dt['status_mutasi'] == 0) { ?>
-                    <a onclick="mutasiData({title: 'Mutasi Invoice', id_p : <?php echo $_POST['id_proses'] ?>, id_k : <?php echo $dt['id'] ?>});" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Mutasi"><span class="fas fa-paper-plane"></span></a>
-                <?php } else { ?>
-                    <a onclick="batalkanMutasi({id_proses : <?php echo $_POST['id_proses'] ?>, id_keuangan : <?php echo $dt['id'] ?>, nomor: '<?php echo $dt['nomor'] ?>', go:2, kas:'kas_cabang', cabang_id:2, status_konfirmasi: <?php echo $dt['status_konfirmasi'] ?>})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="left" title="Belum Mutasi"><span class="fas fa-times-circle"></span></a>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
+                    <?php if ($dt['status_mutasi'] == 0) { ?>
+                        <a onclick="mutasiData({title: 'Mutasi Invoice', id_p : <?php echo $_POST['id_proses'] ?>, id_k : <?php echo $dt['id'] ?>});" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Mutasi"><span class="fas fa-paper-plane"></span></a>
+                    <?php } else { ?>
+                        <a onclick="batalkanMutasi({id_proses : <?php echo $_POST['id_proses'] ?>, id_keuangan : <?php echo $dt['id'] ?>, nomor: '<?php echo $dt['nomor'] ?>', go:2, kas:'kas_cabang', cabang_id:2, status_konfirmasi: <?php echo $dt['status_konfirmasi'] ?>})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="left" title="Belum Mutasi"><span class="fas fa-times-circle"></span></a>
+                    <?php } ?>
                 <?php } ?>
                 <a onclick="lihatGambar('Preview Bukti', 'manum/file/keuangan/<?php echo $dt['bukti']; ?>');" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="left" title="Bukti"><span class="fas fa-file-image"></span></a>
                 <a target="_blank" href="manum/action/print/invoice.php?id=<?php echo $dt['id'] ?>" class="btn btn-sm btn-primary"><span class="fas fa-print"></span></a>
-                <?php if ($dt['status_konfirmasi'] == 0 && $dt['status_mutasi'] == 0) { ?>
-                    <button onclick="alertBeforeDeleteСustom(<?php echo $dt['id'] ?>, 'keuangan', {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 2, tbody: 'tbody2'});" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span> Hapus</button>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
+                    <?php if ($dt['status_konfirmasi'] == 0 && $dt['status_mutasi'] == 0) { ?>
+                        <button onclick="alertBeforeDeleteСustom(<?php echo $dt['id'] ?>, 'keuangan', {kas: 'kas_pusat', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 2, tbody: 'tbody2'});" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span> Hapus</button>
+                    <?php } ?>
                 <?php } ?>
             </td>
         </tr>
@@ -74,7 +79,7 @@ if ($count !== 0) {
             <td colspan="10"></td>
             <td style="position: sticky; right:0;" class="bg-secondary text-bold" align="center">
                 JUMLAH<br>
-                <?php echo number_format($row[0]['jumlah'],0,',','.') ?>
+                <?php echo number_format($row[0]['jumlah'], 0, ',', '.') ?>
             </td>
         </tr>
     </tfooter>

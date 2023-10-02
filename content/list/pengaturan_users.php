@@ -18,7 +18,7 @@ if ($_SESSION['role_id'] == 1) {
 } else {
     $cabang = "WHERE u.cabang_id = '$_SESSION[cabang_id]'";
 }
-$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY u.id DESC) AS no, u.*, r.nama_role, c.cabang FROM users u INNER JOIN cabang c ON c.id = u.cabang_id LEFT JOIN role r ON r.id = u.role_id $cabang $where ORDER BY u.id DESC LIMIT $limit OFFSET $paging";
+$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY u.id DESC) AS no, u.*, r.nama_role, c.cabang FROM users u INNER JOIN cabang c ON c.id = u.cabang_id INNER JOIN role r ON r.id = u.role_id $cabang $where ORDER BY u.id DESC LIMIT $limit OFFSET $paging";
 
 // echo "<script>alert($_POST[show])</script>";
 

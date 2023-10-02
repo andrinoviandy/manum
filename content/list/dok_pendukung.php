@@ -38,14 +38,18 @@ if ($count !== 0) {
                 } ?>
             </td>
             <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
-                <?php if ($dt['status_valid'] == 0) { ?>
-                    <a onclick="verifikasiBerkas(1, {verif: 1, id: <?php echo $dt['id'] ?>, next: {id_proses: <?php echo $_POST['id_proses'] ?>, tbody: 'tbody3'}});" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Valid"><span class="fas fa-check-circle"></span></a>
-                <?php } else { ?>
-                    <a onclick="verifikasiBerkas(0, {verif: 0, id: <?php echo $dt['id'] ?>, next: {id_proses: <?php echo $_POST['id_proses'] ?>, tbody: 'tbody3'}})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="left" title="Not Valid"><span class="fas fa-times-circle"></span></a>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
+                    <?php if ($dt['status_valid'] == 0) { ?>
+                        <a onclick="verifikasiBerkas(1, {verif: 1, id: <?php echo $dt['id'] ?>, next: {id_proses: <?php echo $_POST['id_proses'] ?>, tbody: 'tbody3'}});" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Valid"><span class="fas fa-check-circle"></span></a>
+                    <?php } else { ?>
+                        <a onclick="verifikasiBerkas(0, {verif: 0, id: <?php echo $dt['id'] ?>, next: {id_proses: <?php echo $_POST['id_proses'] ?>, tbody: 'tbody3'}})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="left" title="Not Valid"><span class="fas fa-times-circle"></span></a>
+                    <?php } ?>
                 <?php } ?>
                 <a onclick="lihatGambar('Preview File', 'manum/file/dok_pendukung/<?php echo $dt['file_berkas']; ?>');" class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="left" title="Bukti"><span class="fas fa-file-image"></span></a>
-                <?php if ($dt['status_valid'] == 0) { ?>
-                    <button onclick="alertBeforeDeleteСustom(<?php echo $dt['id'] ?>, 'dok_jamaah', {kas: 'dok_jamaah', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 2, tbody: 'tbody3'});" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span> Hapus</button>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
+                    <?php if ($dt['status_valid'] == 0) { ?>
+                        <button onclick="alertBeforeDeleteСustom(<?php echo $dt['id'] ?>, 'dok_jamaah', {kas: 'dok_jamaah', id_proses: <?php echo $dt['proses_jamaah_id'] ?>, cabang_id: 2, tbody: 'tbody3'});" class="btn btn-sm btn-danger"><span class="fas fa-trash"></span> Hapus</button>
+                    <?php } ?>
                 <?php } ?>
             </td>
         </tr>

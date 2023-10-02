@@ -13,7 +13,7 @@ if (isset($_POST['search'])) {
     $where = $where . "AND (LOWER(j.nik) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(j.nama) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(j.tempat_lahir) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(j.no_hp) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(c.cabang) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pro.nama_provinsi) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(k.nama_kabupaten) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(m.nama_marketing) LIKE LOWER('%" . $_POST['search'] . "%'))";
 }
 $cabang = '';
-if ($_SESSION['role_id'] == 1) {
+if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 4) {
     $cabang = "WHERE p.id IS NOT NULL";
 } else {
     $cabang = "WHERE p.cabang_id = $_SESSION[cabang_id]";
@@ -55,7 +55,9 @@ if ($count !== 0) {
             <td><?php echo $dt['nama_marketing']; ?></td>
             <td align="center" style="position: sticky; right:0;" class="btn-default justify-content-center">
                 <button onclick="loadContent(`${url}_detail`, <?php echo $dt['id_p'] ?>);" class="btn btn-xs btn-warning"><span class="fas fa-eye"></span> Detail</button>
+                <?php if ($_SESSION['role_id'] != 4) { ?>
                 <button onclick="alertBeforeDelete(<?php echo $dt['id_p'] ?>, url, 'proses_jamaah');" class="btn btn-xs btn-danger m-1"><span class="fas fa-trash"></span> Hapus</button>
+                <?php } ?>
             </td>
         </tr>
     <?php
