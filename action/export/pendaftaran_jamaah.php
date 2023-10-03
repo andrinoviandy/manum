@@ -30,7 +30,11 @@ if ($_SESSION['role_id'] == 1) {
 } else {
     $cabang = "WHERE p.cabang_id = $_SESSION[cabang_id]";
 }
-$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY p.id DESC) AS no, j.*, p.id AS id_p, p.*, c.cabang, m.nama_marketing, pro.nama_provinsi, k.nama_kabupaten FROM pendaftaran p INNER JOIN jamaah j ON j.id = p.jamaah_id LEFT JOIN provinsi pro ON pro.id = j.provinsi_id LEFT JOIN kabupaten k ON k.id = j.kabupaten_id LEFT JOIN cabang c ON c.id = p.cabang_id LEFT JOIN marketing m ON m.id = p.marketing_id $cabang ORDER BY p.id DESC";
+$where = '';
+if (isset($_GET['form']) && isset($_GET['to'])) {
+    $where = $where . "AND p.tgl_daftar BETWEEN '$_GET[form]' AND '$_GET[to]'";
+}
+$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY p.id DESC) AS no, j.*, p.id AS id_p, p.*, c.cabang, m.nama_marketing, pro.nama_provinsi, k.nama_kabupaten FROM pendaftaran p INNER JOIN jamaah j ON j.id = p.jamaah_id LEFT JOIN provinsi pro ON pro.id = j.provinsi_id LEFT JOIN kabupaten k ON k.id = j.kabupaten_id LEFT JOIN cabang c ON c.id = p.cabang_id LEFT JOIN marketing m ON m.id = p.marketing_id $cabang $where ORDER BY p.id DESC";
 
 $data = $koneksi->prepare($sql);
 $data->execute();

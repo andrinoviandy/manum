@@ -10,9 +10,11 @@ if (isset($_POST['paging'])) {
 }
 $where = '';
 if (isset($_POST['search'])) {
-    $where = $where . "AND (LOWER(nama_kas) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nominal::VARCHAR) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pembayaran) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nomor) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(keterangan) LIKE LOWER('%" . $_POST['search'] . "%'))";
+    $where = $where . " AND (LOWER(nama_kas) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nominal::VARCHAR) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pembayaran) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(nomor) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(keterangan) LIKE LOWER('%" . $_POST['search'] . "%'))";
 }
-
+if (isset($_GET['form']) && isset($_GET['to'])) {
+    $where = $where . " AND k.tanggal BETWEEN '$_GET[form]' AND '$_GET[to]'";
+}
 $cabang = '';
 if ($_SESSION['role_id'] == 1) {
     $cabang = "AND ks.cabang_id = $_SESSION[cabang_id]";

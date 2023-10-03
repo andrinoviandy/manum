@@ -10,9 +10,12 @@ if (isset($_POST['paging'])) {
 }
 $where = '';
 if (isset($_POST['search'])) {
-    $where = $where . "WHERE (LOWER(nama_paket) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(harga::VARCHAR) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(bulan_berangkat) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(asal_keberangkatan) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pesawat) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(hotel) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(bis) LIKE LOWER('%" . $_POST['search'] . "%'))";
+    $where = $where . " AND (LOWER(nama_paket) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(harga::VARCHAR) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(bulan_berangkat) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(asal_keberangkatan) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(pesawat) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(hotel) LIKE LOWER('%" . $_POST['search'] . "%') OR LOWER(bis) LIKE LOWER('%" . $_POST['search'] . "%'))";
 }
-$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY p.id DESC) AS no, p.*, (SELECT COUNT(*) FROM proses_jamaah WHERE paket_id = p.id) AS jumlah_jamaah FROM paket p $where ORDER BY id DESC LIMIT $limit OFFSET $paging";
+if (isset($_GET['form']) && isset($_GET['to'])) {
+    $where = $where . " AND p.tgl_berangkat BETWEEN '$_GET[form]' AND '$_GET[to]'";
+}
+$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY p.id DESC) AS no, p.*, (SELECT COUNT(*) FROM proses_jamaah WHERE paket_id = p.id) AS jumlah_jamaah FROM paket p WHERE p.id IS NOT NULL $where ORDER BY id DESC LIMIT $limit OFFSET $paging";
 
 // echo "<script>alert($_POST[show])</script>";
 

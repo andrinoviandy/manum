@@ -106,18 +106,18 @@ $row_bar = $data_bar->fetch();
                         <div class="small-box bg-warning">
                             <div class="inner">
                                 <?php
-                                $data_users = $koneksi->prepare("SELECT COUNT(*) AS jumlah_users FROM users WHERE enable = 1");
+                                $data_users = $koneksi->prepare("SELECT COUNT(*) AS jumlah_users FROM proses_jamaah pj LEFT JOIN jamaah j ON j.id = pj.jamaah_id LEFT JOIN pendaftaran p ON j.id = p.jamaah_id LEFT JOIN provinsi pro ON pro.id = j.provinsi_id LEFT JOIN kabupaten k ON k.id = j.kabupaten_id LEFT JOIN cabang c ON c.id = p.cabang_id LEFT JOIN marketing m ON m.id = pj.marketing_id LEFT JOIN paket pak ON pak.id = pj.paket_id WHERE TO_CHAR(pak.tgl_berangkat, 'MM-YYYY') = TO_CHAR(CURRENT_DATE, 'MM-YYYY')");
                                 $data_users->execute();
                                 $row_users = $data_users->fetch();
                                 ?>
-                                <h3>User Aktif</h3>
-                                <p class="text-bold"><?php echo $row_users['jumlah_users'] . " User" ?></p>
+                                <h3>Berangkat Bulan Ini</h3>
+                                <p class="text-bold"><?php echo $row_users['jumlah_users'] . " Jamaah" ?></p>
                             </div>
                             <div class="icon">
-                                <i class="fas fa-user-secret"></i>
+                                <i class="fas calendar"></i>
                             </div>
                             <?php if ($_SESSION['role_id'] == 1) { ?>
-                                <a href="javascript:void()" onclick="loadContent('data_jamaah')" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="javascript:void()" onclick="loadContent('on_progress')" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
                             <?php } ?>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ $row_bar = $data_bar->fetch();
                                 $row_cabang = $data_cabang->fetch();
                                 ?>
                                 <h3>Cabang</h3>
-                                <p class="text-bold"><?php echo $row_cabang['jumlah_cabang'] . " User" ?></p>
+                                <p class="text-bold"><?php echo $row_cabang['jumlah_cabang'] . " Cabang" ?></p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-database"></i>

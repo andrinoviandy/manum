@@ -21,6 +21,7 @@
                         <div class="card-header center">
                             <?php include('show/show.php') ?>
                             <?php include('export/export.php') ?>
+                            <?php include('filter/filterCustom.php') ?>
                             <?php include('search/search.php') ?>
                         </div>
                         <!-- /.card-header -->

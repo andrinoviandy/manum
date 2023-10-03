@@ -28,7 +28,11 @@ if ($_SESSION['role_id'] == 1) {
 } else {
     $cabang = "AND ks.cabang_id = $_SESSION[cabang_id]";
 }
-$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY k.id DESC) AS no, k.*, ks.nama_kas, kk.nama_kategori FROM keuangan k INNER JOIN kategori_keuangan kk ON kk.id = k.kategori_keuangan_id INNER JOIN kas ks ON ks.id = k.kas_id WHERE kk.jenis_kategori = 'k' AND kk.nama_kategori != 'Reimburse' AND k.status_mutasi = 0 $cabang ORDER BY k.id DESC";
+$where = '';
+if (isset($_GET['form']) && isset($_GET['to'])) {
+    $where = $where . " AND k.tanggal BETWEEN '$_GET[form]' AND '$_GET[to]'";
+}
+$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY k.id DESC) AS no, k.*, ks.nama_kas, kk.nama_kategori FROM keuangan k INNER JOIN kategori_keuangan kk ON kk.id = k.kategori_keuangan_id INNER JOIN kas ks ON ks.id = k.kas_id WHERE kk.jenis_kategori = 'k' AND kk.nama_kategori != 'Reimburse' AND k.status_mutasi = 0 $cabang $where ORDER BY k.id DESC";
 
 $data = $koneksi->prepare($sql);
 $data->execute();

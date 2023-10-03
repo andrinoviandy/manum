@@ -23,7 +23,12 @@ $excelData[] = array(
     $head1 . 'Jamaah Join' . $head2
 );
 
-$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY p.id DESC) AS no, p.*, (SELECT COUNT(*) FROM proses_jamaah WHERE paket_id = p.id) AS jumlah_jamaah, CASE WHEN p.tayang = 0 THEN 'Belum Tayang' ELSE 'Sudah Tayang' END AS status FROM paket p ORDER BY id DESC";
+$where = '';
+if (isset($_GET['form']) && isset($_GET['to'])) {
+    $where = $where . "WHERE p.tgl_berangkat BETWEEN '$_GET[form]' AND '$_GET[to]'";
+}
+
+$sql = "SELECT COUNT(*) OVER () AS total, row_number() OVER (ORDER BY p.id DESC) AS no, p.*, (SELECT COUNT(*) FROM proses_jamaah WHERE paket_id = p.id) AS jumlah_jamaah, CASE WHEN p.tayang = 0 THEN 'Belum Tayang' ELSE 'Sudah Tayang' END AS status FROM paket p $where ORDER BY id DESC";
 
 $data = $koneksi->prepare($sql);
 $data->execute();
