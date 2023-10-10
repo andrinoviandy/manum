@@ -83,7 +83,8 @@ try {
     //Recipients
     $mail->setFrom('no-reply@email.com', 'Abid Soeheily Qary');
     // $mail->addAddress('sh_adi@rocketmail.com', '');  //add to email  
-    $mail->addAddress('yulsania0@gmail.com', '');  //add to email  
+    // $mail->addAddress('yulsania0@gmail.com', '');  //add to email  
+    $mail->addAddress('asqtourtravel@gmail.com', '');  //add to email  
     // $mail->addReplyTo('andrinoviandy77@gmail.com', 'saiarlen');  //add replay to email
 
 
